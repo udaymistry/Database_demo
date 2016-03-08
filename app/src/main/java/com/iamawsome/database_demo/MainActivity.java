@@ -1,15 +1,13 @@
 package com.iamawsome.database_demo;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     MyDatabaseAdapter myDatabaseAdapter;
-    EditText username,password;
+    EditText username,password,getPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
         myDatabaseAdapter = new MyDatabaseAdapter(this);
 
         username = (EditText)findViewById(R.id.username);
-        password = (EditText)findViewById(R.id.username);
-
+        password = (EditText)findViewById(R.id.password);
+        getPassword = (EditText) findViewById(R.id.userpass);
     }
 
 
@@ -50,4 +48,10 @@ public void viewalldata(View view)
     Message.message(this,dta);
 }
 
+    public void magic(View view)
+    {
+        String susan = getPassword.getText().toString();
+        String merry = myDatabaseAdapter.fetchData(susan);
+        Message.message(this,merry);
+    }
 }

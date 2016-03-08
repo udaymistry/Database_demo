@@ -49,13 +49,34 @@ public class MyDatabaseAdapter
 
         return stringBuffer.toString();
     }
+     public String fetchData(String name)
+     {
+         SQLiteDatabase db = Dbhelper.getWritableDatabase();
+
+         String columns[] = {dbhelper.Name,dbhelper.Password};
+         Cursor cursor = db.query(dbhelper.TABLE_NAME, columns, dbhelper.Name+" = '"+name+" ' ", null, null, null, null);
+         StringBuilder stringBuffer = new StringBuilder();
+
+
+         while (cursor.moveToNext())
+         {
+
+             int index1 = cursor.getColumnIndex(dbhelper.Name);
+             int index2  = cursor.getColumnIndex(dbhelper.Password);
+             String username = cursor.getString(index1);
+             String password = cursor.getString(index2);
+             stringBuffer.append(username).append(" ").append(password).append("\n");
+         }
+
+         return stringBuffer.toString();
+     }
 
      static class dbhelper extends SQLiteOpenHelper
     {
 
         private static final String DATABASE_NAME="MY_DATA_BASE";
         private static final String TABLE_NAME="MY_TABLE";
-        private static final int Version = 8;
+        private static final int Version = 9;
         private static final String UID = "_id";
         private static final String Name = "NAME";
         private static final String Password = "PASSWORD";
